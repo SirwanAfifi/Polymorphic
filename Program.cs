@@ -17,7 +17,7 @@ namespace Polymorphic
             var dbContext = serviceProvider.GetService<MyDbContext>();
 
             var faker = new Bogus.Faker();
-            dbContext.Articles.Add(new Article {
+            /*dbContext.Articles.Add(new Article {
                 Title = $"Article A", 
                 Slug = $"article_a", 
                 Description = "No desc", 
@@ -52,8 +52,14 @@ namespace Polymorphic
                 });
             }
             
-            dbContext.SaveChanges();
-            
+            dbContext.SaveChanges();*/
+
+            var articleComments = dbContext.Comments
+                .Where(x => x.CommentType == CommentType.Article && x.TypeId.Value == 1);
+            foreach (var articleComment in articleComments)
+            {
+                Console.WriteLine(articleComment.CommentText);
+            }
         }
         private static void ConfigureServices(IServiceCollection services)
         {
