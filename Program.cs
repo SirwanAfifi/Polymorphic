@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Polymorphic.Data;
 
 namespace Polymorphic
 {
@@ -6,7 +7,19 @@ namespace Polymorphic
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var serviceCollection = new ServiceCollection();
+            ConfigureServices(serviceCollection);
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+
+            var dbContext = serviceProvider.GetService<MyDbContext>();
+
+            var faker = new Bogus.Faker();
+            
+            
+        }
+        private static void ConfigureServices(IServiceCollection services)
+        {
+            services.AddDbContext<MyDbContext>();
         }
     }
 }
