@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Polymorphic.Data;
 using Polymorphic.Models;
@@ -18,7 +19,7 @@ namespace Polymorphic
 
             var faker = new Bogus.Faker();
             
-            dbContext.Articles.Add(new Article {
+            /*dbContext.Articles.Add(new Article {
                 Title = $"Article A", 
                 Slug = $"article_a", 
                 Description = "No desc", 
@@ -38,7 +39,18 @@ namespace Polymorphic
                 Comments = Enumerable.Range(1, 10).Select(item => new Comment {CommentText = faker.Lorem.Paragraph(1), User = faker.Internet.UserName()}).ToList()
             });
 
-            dbContext.SaveChanges();
+            dbContext.SaveChanges();*/
+            
+            // Querying
+            var articles = dbContext.Articles
+                .Include(x => x.Comments).Where(x => x.Id == 1);
+            foreach (var article in articles)
+            {
+                Console.WriteLine($"{article.Title} - Comments: {article.Comments.Count}");
+            }
+            var comment = dbContext.Comments.Include(x => x.Article)
+                .FirstOrDefault(x => x.Id == 1);
+            Console.WriteLine(comment?.Article.Title);
         }
         private static void ConfigureServices(IServiceCollection services)
         {
