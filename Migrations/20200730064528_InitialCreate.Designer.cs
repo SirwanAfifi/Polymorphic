@@ -9,7 +9,7 @@ using Polymorphic.Data;
 namespace Polymorphic.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20200729115214_InitialCreate")]
+    [Migration("20200730064528_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
