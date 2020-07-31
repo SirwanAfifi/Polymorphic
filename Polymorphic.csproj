@@ -6,7 +6,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Bogus" Version="29.0.2" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.6">
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         <PrivateAssets>all</PrivateAssets>
